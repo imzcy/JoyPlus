@@ -16,7 +16,7 @@ var _sendMessage = function(GUID, message) {
 }
 JP.onEvent(function(e) {
 	var device = e.device;
-	console.log('In JP.onEvent: device=' + device);
+	//console.log('In JP.onEvent: device=' + device);
 	_sendMessage(_deviceMapping[device], e);
 });
 window.addEventListener('message', function(event) {

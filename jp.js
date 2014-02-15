@@ -22,7 +22,6 @@
       data = message.data;
       dataObject = JSON.parse(data);
       if ("event" in dataObject) {
-        console.log(dataObject);
         if (dataObject["event"] === "connect") {
           that.deviceConnectCallback.call(this, dataObject['device']);
         }
