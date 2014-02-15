@@ -17,11 +17,15 @@
     };
 
     JP.prototype.handleMessage = function(message) {
-      var data, dataObject, handler, _i, _len, _ref, _results;
+      var data, dataObject, handler, that, _i, _len, _ref, _results;
+      that = this;
       data = message.data;
       dataObject = JSON.parse(data);
       if ("event" in dataObject) {
         console.log(dataObject);
+        if (dataObject["event"] === "connect") {
+          that.deviceConnectCallback.call(this, dataObject['device']);
+        }
         _ref = this.eventHandlers;
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
