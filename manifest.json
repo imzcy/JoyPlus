@@ -1,0 +1,24 @@
+{
+  "name": "JoyPlus",
+  "description": "This extension gives you the most advanced gaming experience out of your very own Chrome browser.",
+  "version": "0.0.0",
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false // What is this?
+  },
+  "icons": { "128": "JoyPlus_128x128.png" },
+  "options_page": "options.html",
+  "browser_action": {
+    "default_title": "JoyPlus",
+    "default_icon": "JoyPlus_16x16.png"
+  },
+  
+  "content_scripts": [{
+	  "js": ["jp.js", "content_script.js"],
+	  "matches": ["https://*/*", "http://*/*"]
+	  }
+  ],
+  "web_accessible_resources": ["script.js"],
+
+  "manifest_version": 2
+}
