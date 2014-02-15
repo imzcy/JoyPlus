@@ -2,6 +2,8 @@ window.JoyPlus = (function(window, undefined) {
 	// Constants
 	var STATUS_DISCONNECTED = 0;
 	var STATUS_CONNECTED = 1;
+	var internal = {}
+	internal.GUID = [];
 	// Construct JoyPlus
 	var JoyPlus = function() {
 		this.version = 0.0;
@@ -10,13 +12,14 @@ window.JoyPlus = (function(window, undefined) {
 		data.GUID = (function() {
 			for(;;) {
 				var GUID = Math.floor(100000 * Math.random());
-				if (JoyPlus.prototype._GUID.indexOf(GUID) == -1) {
-					JoyPlus.prototype._GUID.push(GUID);
+				if (internal.GUID.indexOf(GUID) == -1) {
+					internal.GUID.push(GUID);
 					return GUID;
 				}
 			}
 		})();
 		data.callback = function() {
+			// Should never be called
 			console.log("Null function called.");
 		}
 		var _message = function(msg) {
@@ -46,8 +49,6 @@ window.JoyPlus = (function(window, undefined) {
 			_postMessage({cmd: 'CONNECT', GUID: data.GUID});
 		}
 	}
-	
-	JoyPlus.prototype._GUID = [];
 	
 	return JoyPlus;
 })(window);

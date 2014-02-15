@@ -18,7 +18,7 @@
 	  "matches": ["https://*/*", "http://*/*"]
 	  }
   ],
-  "web_accessible_resources": ["script.js"],
+  "web_accessible_resources": ["script.js", "jp.map", "jp.coffee"],
 
   "manifest_version": 2
 }

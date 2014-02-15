@@ -8,13 +8,14 @@ s.onload = function() {
 var _deviceMapping = {};
 
 var _sendMessage = function(GUID, message) {
-	_plugin.postMessage({
+	window.postMessage({
 		message: message,
 		GUID: GUID
-	}, _recvMessage);
+	}, '*');
 }
 JP.onEvent(function(e) {
 	var device = e.device;
+	console.log('In JP.onEvent: device=' + device);
 	_sendMessage(_deviceMapping[device], e);
 });
 window.addEventListener('message', function(event) {
@@ -27,6 +28,7 @@ window.addEventListener('message', function(event) {
 		if (data.cmd == 'CONNECT') {
 			JP.connect(function(device) {
 				_deviceMapping[device] = GUID;
+				console.log('Device mapping for ' + device + ' => ' + GUID + ' created.');
 				_sendMessage(GUID, {
 					device: device
 				});
