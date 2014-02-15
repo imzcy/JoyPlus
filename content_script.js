@@ -10,7 +10,8 @@ var _deviceMapping = {};
 var _sendMessage = function(GUID, message) {
 	window.postMessage({
 		message: message,
-		GUID: GUID
+		GUID: GUID,
+		type: 'JOYPLUSINJ'
 	}, '*');
 }
 JP.onEvent(function(e) {

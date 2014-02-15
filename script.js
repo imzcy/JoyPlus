@@ -33,7 +33,6 @@ window.JoyPlus = (function(window, undefined) {
 		var _getMessage = function(event) {
 			if (event.source != window) return;
 			if (event.data.type && (event.data.type == 'JOYPLUSINJ') && (event.data.GUID == data.GUID)) {
-				console.log('JOYPLUSINJ' + event.data.message);
 				// Dispatch message
 				var message = event.data.message;
 				if (data.status == STATUS_DISCONNECTED) {
