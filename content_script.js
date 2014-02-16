@@ -19,15 +19,20 @@ JP.onEvent(function(e) {
 	//console.log('In JP.onEvent: device=' + device);
 	_sendMessage(_deviceMapping[device], e);
 });
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+	var message = request.action;
+	_sendMessage(0, {action: 'connect'});
+})
 window.addEventListener('message', function(event) {
 	if (event.source != window) return;
 	if (event.data.type && (event.data.type == 'JOYPLUSCNT')) {
 		//console.log(event.data.message);
 		//_sendMessage(event.data.message);
-		var data = event.data.message;
+		var msg = event.data.message;
 		var GUID = event.data.GUID;
-		if (data.cmd == 'CONNECT') {
-			JP.connect(function(device) {
+		var layout = msg.layout;
+		if (msg.cmd == 'CONNECT') {
+			JP.connect(layout, function(device) {
 				_deviceMapping[device] = GUID;
 				console.log('Device mapping for ' + device + ' => ' + GUID + ' created.');
 				_sendMessage(GUID, {

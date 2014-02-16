@@ -68,12 +68,19 @@
       }
     };
 
-    JP.prototype.connect = function(callback) {
+    JP.prototype.connect = function(layout, callback) {
       this.sendMessage({
         event: "connect",
-        layout: 1
+        layout: layout
       });
       return this.deviceConnectCallback = callback;
+    };
+
+    JP.prototype.changeLayout = function(layout) {
+      return this.sendMessage({
+        event: "layout",
+        layout: layout
+      });
     };
 
     JP.prototype.eventHandlers = [];

@@ -18,7 +18,7 @@ window.JoyPlus = (function(window, undefined) {
 				}
 			}
 		})();
-		data.callback = function() {
+		data.connected = data.callback = function() {
 			// Should never be called
 			console.log("Null function called.");
 		}
@@ -37,17 +37,29 @@ window.JoyPlus = (function(window, undefined) {
 				var message = event.data.message;
 				if (data.status == STATUS_DISCONNECTED) {
 					data.status = STATUS_CONNECTED;
+					data.connected(message.device);
 				} else {
 					data.callback(message);
 				}
 			}
 		}
 		window.addEventListener('message', _getMessage);
-		this.connect = function(callback) {
+		this.connect = function(layout, connected, callback) {
 			data.callback = callback;
-			_postMessage({cmd: 'CONNECT', GUID: data.GUID});
+			data.connected = connected;
+			_postMessage({cmd: 'CONNECT', GUID: data.GUID, layout: layout});
 		}
 	}
+	window.addEventListener('message', function(event) {
+		if (event.source != window) return;
+		if (event.data.type && (event.data.type == 'JOYPLUSINJ') && (event.data.GUID == 0)) {
+			try {
+				window.JoyPlusConnect();
+			} catch(e) {
+				alert('This application does not support integrated connect.\n\n' + e.message);
+			}
+		}
+	});
 	
 	return JoyPlus;
 })(window);
